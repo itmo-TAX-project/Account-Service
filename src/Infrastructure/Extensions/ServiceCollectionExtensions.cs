@@ -1,8 +1,8 @@
-﻿using FluentMigrator.Runner;
+﻿using Application.Models;
+using Application.Persistence;
+using FluentMigrator.Runner;
 using Infrastructure.Db.Options;
-using Infrastructure.Db.Persistence;
 using Infrastructure.Db.Repositories;
-using Infrastructure.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
 

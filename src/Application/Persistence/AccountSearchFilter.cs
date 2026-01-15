@@ -1,6 +1,6 @@
-﻿using Infrastructure.Models;
+﻿using Application.Models;
 
-namespace Infrastructure.Db.Persistence;
+namespace Application.Persistence;
 
 public record AccountSearchFilter(
     long? Id = null,

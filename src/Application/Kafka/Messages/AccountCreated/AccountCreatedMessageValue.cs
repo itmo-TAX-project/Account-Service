@@ -1,4 +1,4 @@
-﻿using Infrastructure.Models;
+﻿using Application.Models;
 
 namespace Application.Kafka.Messages.AccountCreated;
 

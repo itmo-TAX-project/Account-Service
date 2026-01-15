@@ -1,5 +1,5 @@
-﻿using Infrastructure.Models;
+﻿using Application.Models;
 
-namespace Infrastructure.Db.Persistence;
+namespace Application.Persistence;
 
 public record AccountPaginatedResponse(IEnumerable<Account>? Accounts, long? PageToken);

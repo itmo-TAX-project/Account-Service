@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Db.Persistence;
+﻿namespace Application.Persistence;
 
 public record PaginatedRequest(
     int? PageSize,

@@ -1,5 +1,5 @@
-﻿using Infrastructure.Db.Persistence;
-using Infrastructure.Models;
+﻿using Application.Models;
+using Application.Persistence;
 using Npgsql;
 using NpgsqlTypes;
 

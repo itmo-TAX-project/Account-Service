@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Models;
+﻿namespace Application.Models;
 
 public enum AccountRole
 {

@@ -1,8 +1,8 @@
 ﻿using Application.Kafka.Messages.AccountCreated;
 using Application.Kafka.Messages.DriverCreated;
 using Application.Kafka.Messages.PassengerCreated;
-using Infrastructure.Db.Persistence;
-using Infrastructure.Models;
+using Application.Models;
+using Application.Persistence;
 using Itmo.Dev.Platform.Kafka.Consumer;
 using Itmo.Dev.Platform.Kafka.Producer;
 

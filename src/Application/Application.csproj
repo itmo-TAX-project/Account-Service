@@ -11,8 +11,4 @@
       <PackageReference Include="System.Linq.Async" />
     </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-    </ItemGroup>
-
 </Project>
