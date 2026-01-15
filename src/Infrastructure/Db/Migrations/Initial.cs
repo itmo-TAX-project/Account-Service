@@ -8,7 +8,7 @@ public class Initial : Migration
     public override void Up()
     {
         Execute.Sql(@"CREATE TYPE role AS ENUM ('passenger', 'driver', 'admin');");
-        
+
         Create.Table("accounts")
             .WithColumn("account_id").AsInt64().PrimaryKey().Identity()
             .WithColumn("account_name").AsString().NotNullable()
@@ -16,7 +16,6 @@ public class Initial : Migration
             .WithColumn("account_role").AsCustom("role").NotNullable()
             .WithColumn("account_is_banned").AsBoolean().NotNullable()
             .WithColumn("account_created_at").AsDateTimeOffset().NotNullable();
-
     }
 
     public override void Down()

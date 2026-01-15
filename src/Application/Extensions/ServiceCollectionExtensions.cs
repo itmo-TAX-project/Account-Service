@@ -2,7 +2,6 @@
 using Application.Kafka.Messages.AccountCreated;
 using Application.Kafka.Messages.DriverCreated;
 using Application.Kafka.Messages.PassengerCreated;
-using Itmo.Dev.Platform.Kafka.Configuration;
 using Itmo.Dev.Platform.Kafka.Consumer;
 using Itmo.Dev.Platform.Kafka.Extensions;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +11,14 @@ namespace Application.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    public static IServiceCollection AddKafka(this IServiceCollection collection, IConfiguration configuration)
+    {
+        collection.AddInboxConsumer<AccountCreatedMessageKey, AccountCreatedMessageValue, AccountCreatedInboxHandler>(configuration);
+        collection.AddOutboxProducer<DriverCreatedMessageKey, DriverCreatedMessageValue>(configuration);
+        collection.AddOutboxProducer<PassengerCreatedMessageKey, PassengerCreatedMessageValue>(configuration);
+        return collection;
+    }
+
     internal static IServiceCollection AddInboxConsumer<TKey, TValue, THandler>(this IServiceCollection collection, IConfiguration configuration) where THandler : class, IKafkaInboxHandler<TKey, TValue>
     {
         return collection.AddPlatformKafka(builder => builder
@@ -36,13 +43,5 @@ public static class ServiceCollectionExtensions
                 .SerializeKeyWithNewtonsoft()
                 .SerializeValueWithNewtonsoft()
                 .WithOutbox()));
-    }
-    
-    public static IServiceCollection AddKafka(this IServiceCollection collection, IConfiguration configuration)
-    {
-        collection.AddInboxConsumer<AccountCreatedMessageKey, AccountCreatedMessageValue, AccountCreatedInboxHandler>(configuration);
-        collection.AddOutboxProducer<DriverCreatedMessageKey, DriverCreatedMessageValue>(configuration);
-        collection.AddOutboxProducer<PassengerCreatedMessageKey, PassengerCreatedMessageValue>(configuration);
-        return collection;
     }
 }

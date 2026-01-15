@@ -1,6 +1,4 @@
-﻿using Infrastructure.Models;
-
-namespace Infrastructure.Db.Persistence;
+﻿namespace Infrastructure.Db.Persistence;
 
 public record PaginatedRequest(
     int? PageSize,
