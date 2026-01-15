@@ -20,7 +20,8 @@ internal class Program
         if (dbOptions == null) throw new NullReferenceException("DatabaseConfigOptions is null.");
 
         builder.Services.AddPersistence(dbOptions);
-        builder.Services.AddKafka(builder.Configuration);
+        builder.Services.AddKafkaInfrastructure(builder.Configuration);
+        builder.Services.AddKafkaApplication(builder.Configuration);
 
         string serviceUrl = builder.Configuration.GetSection("AccountService:BaseAddress").Value ?? "http://localhost:8080/";
         WebApplication app = builder.Build();
