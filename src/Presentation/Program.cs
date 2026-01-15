@@ -5,6 +5,7 @@ using Infrastructure.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Presentation.Extensions;
 
 namespace Presentation;
 
@@ -21,7 +22,8 @@ internal class Program
 
         builder.Services.AddPersistence(dbOptions);
         builder.Services.AddKafkaInfrastructure(builder.Configuration);
-        builder.Services.AddKafkaApplication(builder.Configuration);
+        builder.Services.AddApplication(builder.Configuration);
+        builder.Services.AddPresentation();
 
         string serviceUrl = builder.Configuration.GetSection("AccountService:BaseAddress").Value ?? "http://localhost:8080/";
         WebApplication app = builder.Build();
