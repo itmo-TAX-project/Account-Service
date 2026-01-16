@@ -21,9 +21,9 @@ public class AccountRepository(NpgsqlDataSource dataSource) : IAccountRepository
         await using var command = new NpgsqlCommand(sql, connection);
         command.Parameters.Add(new NpgsqlParameter("name", NpgsqlDbType.Text) { Value = account.Name });
         command.Parameters.Add(new NpgsqlParameter("phone", NpgsqlDbType.Text) { Value = account.Phone });
-        command.Parameters.Add(new NpgsqlParameter("role", "account_role") { Value = account.Role });
+        command.Parameters.Add(new NpgsqlParameter("role", "account_roles") { Value = account.Role });
         command.Parameters.Add(new NpgsqlParameter("is_banned", NpgsqlDbType.Boolean) { Value = account.IsBanned });
-        command.Parameters.Add(new NpgsqlParameter("created_at", NpgsqlDbType.TimestampTz) { Value = account.CreatedAt });
+        command.Parameters.Add(new NpgsqlParameter("created_at", NpgsqlDbType.Timestamp) { Value = account.CreatedAt });
 
         object? result = await command.ExecuteScalarAsync(cancellationToken);
         return Convert.ToInt64(result);
@@ -46,9 +46,9 @@ public class AccountRepository(NpgsqlDataSource dataSource) : IAccountRepository
         command.Parameters.Add(new NpgsqlParameter("account_id", NpgsqlDbType.Bigint) { Value = account.Id });
         command.Parameters.Add(new NpgsqlParameter("name", NpgsqlDbType.Text) { Value = account.Name });
         command.Parameters.Add(new NpgsqlParameter("phone", NpgsqlDbType.Text) { Value = account.Phone });
-        command.Parameters.Add(new NpgsqlParameter("role", "account_role") { Value = account.Role });
+        command.Parameters.Add(new NpgsqlParameter("role", "account_roles") { Value = account.Role });
         command.Parameters.Add(new NpgsqlParameter("is_banned", NpgsqlDbType.Boolean) { Value = account.IsBanned });
-        command.Parameters.Add(new NpgsqlParameter("created_at", NpgsqlDbType.TimestampTz) { Value = account.CreatedAt });
+        command.Parameters.Add(new NpgsqlParameter("created_at", NpgsqlDbType.Timestamp) { Value = account.CreatedAt });
 
         await command.ExecuteNonQueryAsync(cancellationToken);
     }
@@ -82,9 +82,9 @@ public class AccountRepository(NpgsqlDataSource dataSource) : IAccountRepository
         {
             Value = searchFilter.Phone != null ? searchFilter.Phone : DBNull.Value,
         });
-        command.Parameters.Add(new NpgsqlParameter("role", "account_role")
+        command.Parameters.Add(new NpgsqlParameter("role", "account_roles")
         {
-            DataTypeName = "account_role",
+            DataTypeName = "account_roles",
             Value = searchFilter.Role.HasValue ? searchFilter.Role.Value : DBNull.Value,
         });
         command.Parameters.Add(new NpgsqlParameter("is_banned", NpgsqlDbType.Boolean)

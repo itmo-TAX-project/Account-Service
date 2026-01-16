@@ -15,18 +15,18 @@ public static class ServiceCollectionExtensions
     {
         collection.AddScoped<IAccountService, AccountService>();
 
-        collection.AddInboxConsumer<AccountCreatedMessageKey, AccountCreatedMessageValue, AccountCreatedInboxHandler>(configuration);
+        collection.AddInboxConsumer<AccountCreatedMessageKey, AccountCreatedMessageValue, AccountCreatedInboxHandler>(configuration, "Kafka:Consumers:AccountCreatedMessage");
         return collection;
     }
 
-    internal static IServiceCollection AddInboxConsumer<TKey, TValue, THandler>(this IServiceCollection collection, IConfiguration configuration) where THandler : class, IKafkaInboxHandler<TKey, TValue>
+    internal static IServiceCollection AddInboxConsumer<TKey, TValue, THandler>(this IServiceCollection collection, IConfiguration configuration, string sectionName) where THandler : class, IKafkaInboxHandler<TKey, TValue>
     {
         return collection.AddPlatformKafka(builder => builder
             .ConfigureOptions(configuration.GetSection("Kafka"))
             .AddConsumer(b => b
                 .WithKey<TKey>()
                 .WithValue<TValue>()
-                .WithConfiguration(configuration.GetSection("Kafka:Consumers:Message"))
+                .WithConfiguration(configuration.GetSection(sectionName))
                 .DeserializeKeyWithNewtonsoft()
                 .DeserializeValueWithNewtonsoft()
                 .HandleInboxWith<THandler>()));

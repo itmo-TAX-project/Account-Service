@@ -14,6 +14,8 @@
     <PackageVersion Include="Grpc.Core" Version="2.46.6" />
     <PackageVersion Include="Grpc.Tools" Version="2.76.0" />
     <PackageVersion Include="Itmo.Dev.Platform.Kafka" Version="2.3.326" />
+    <PackageVersion Include="Itmo.Dev.Platform.MessagePersistence" Version="2.2.326" />
+    <PackageVersion Include="Itmo.Dev.Platform.MessagePersistence.Postgres" Version="2.2.326" />
     <PackageVersion Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.3.8" />
     <PackageVersion Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.8" />
     <PackageVersion Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.1" />

@@ -2,7 +2,7 @@
 
 public class Account
 {
-    public Account(string name, string phone, AccountRole role, bool isBanned, DateTimeOffset createdAt, long id)
+    public Account(string name, string phone, AccountRole role, bool isBanned, DateTime createdAt, long id)
     {
         Id = id;
         Name = name;
@@ -18,7 +18,7 @@ public class Account
         Phone = phone;
         Role = role;
         IsBanned = false;
-        CreatedAt = DateTimeOffset.Now;
+        CreatedAt = DateTime.Now;
     }
 
     public long? Id { get; private set; }
@@ -31,5 +31,5 @@ public class Account
 
     public bool IsBanned { get; private set; }
 
-    public DateTimeOffset CreatedAt { get; }
+    public DateTime CreatedAt { get; }
 }

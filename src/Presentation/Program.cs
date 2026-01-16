@@ -1,7 +1,7 @@
 ﻿using Application.Extensions;
-using FluentMigrator.Runner;
 using Infrastructure.Db.Options;
 using Infrastructure.Extensions;
+using Itmo.Dev.Platform.Common.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,27 +11,22 @@ namespace Presentation;
 
 internal class Program
 {
-    public static async Task Main(string[] args)
+    public static void Main(string[] args)
     {
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
         builder.Configuration.AddJsonFile("appsettings.json");
-        DatabaseConfigOptions? dbOptions = builder.Configuration.GetSection(DatabaseConfigOptions.SectionName).Get<DatabaseConfigOptions>();
+        builder.Services.Configure<DatabaseConfigOptions>(builder.Configuration.GetSection("Postgres"));
 
-        if (dbOptions == null) throw new NullReferenceException("DatabaseConfigOptions is null.");
+        builder.Services.AddPlatform();
 
-        builder.Services.AddPersistence(dbOptions);
+        builder.Services.AddPersistence();
         builder.Services.AddKafkaInfrastructure(builder.Configuration);
         builder.Services.AddApplication(builder.Configuration);
         builder.Services.AddPresentation();
 
-        string serviceUrl = builder.Configuration.GetSection("AccountService:BaseAddress").Value ?? "http://localhost:8080/";
         WebApplication app = builder.Build();
 
-        await using ServiceProvider provider = builder.Services.BuildServiceProvider();
-        IMigrationRunner migrationRunner = provider.GetRequiredService<IMigrationRunner>();
-        migrationRunner.MigrateUp();
-
-        app.Run(serviceUrl);
+        app.Run();
     }
 }
