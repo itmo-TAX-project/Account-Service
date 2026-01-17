@@ -45,4 +45,21 @@ public class AccountService : IAccountService
 
         throw new NullReferenceException("Account not found");
     }
+
+    public async Task<long> GetAccountIdByNameAsync(string name, CancellationToken cancellationToken)
+    {
+        var filter = new AccountSearchFilter(null, name, null, null);
+        var pagination = new PaginatedRequest(1, null);
+
+        AccountPaginatedResponse result =
+            await _accountRepository.SearchAccountsByFilterAsync(filter, pagination, cancellationToken);
+
+        if (result.Accounts == null) throw new NullReferenceException("Account not found");
+
+        Account? accountResult = result.Accounts.FirstOrDefault();
+
+        if (accountResult == null) throw new NullReferenceException("Account is null");
+
+        return accountResult.Id ?? throw new NullReferenceException("Id is null");
+    }
 }

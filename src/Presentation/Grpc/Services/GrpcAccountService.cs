@@ -26,4 +26,10 @@ public class GrpcAccountService : AccountService.AccountServiceBase
         bool result = await _accountService.CheckBanStatusAsync(request.AccountId, default);
         return new CheckBanStatusResponse { IsBanned = result };
     }
+
+    public override async Task<GetAccountIdByNameResponse> GetAccountIdByName(GetAccountIdByNameRequest request, ServerCallContext context)
+    {
+        long resultId = await _accountService.GetAccountIdByNameAsync(request.Name, default);
+        return new GetAccountIdByNameResponse { AccountId = resultId };
+    }
 }
